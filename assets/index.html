@@ -45,6 +45,16 @@
       padding: 20px;
       text-align: center;
   }
+  .success {
+    padding: 12px 20px;
+    color: greenyellow;
+    text-align: center;
+  }
+  .fail {
+    padding: 12px 20px;
+    color: red;
+    text-align: center;
+  }
  </style>
  <body>
   <div class="container">
@@ -58,7 +68,6 @@
         <select id="type">
           <option disabled selected value="">Select type</option>
         </select>
-        <!-- <input name='type' id='type' placeholder="Select type" /> -->
       </div>
       <div class="input-group">
         <label for='file'>Select file</label>
@@ -66,10 +75,14 @@
       </div>
       <input class="submit-btn" type="submit" value="Upload"/>
     </form>
+    <div id='success' class='success' style="display:none">Success</div>
+    <div id='fail' class='fail' style="display:none">Fail</div>
   </div>
   
   <script>
     const form = document.getElementById("form");
+    const success = document.getElementById("success")
+    const fail = document.getElementById("fail")
    
     fetch("type.json")
     .then((res) => {
@@ -103,8 +116,21 @@
         method: 'POST',
         body: formData,
       })
-      .then((res) => console.log(res))
-      .catch((err) => ("Error occured", err));
+      .then((res) => {
+        console.log(res);
+        form.reset();
+        success.style.display = 'block';
+        setTimeout(function(){
+          success.style.display = 'none';
+        }, 2000)
+      })
+      .catch((err) => {
+        ("Error occured", err)
+        fail.style.display = 'block';
+        setTimeout(function(){
+          fail.style.display = 'none';
+        }, 2000)
+      });
     }
   </script>
  </body>
