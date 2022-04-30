@@ -30,6 +30,11 @@
       width: 100%;
       border: 1px solid #ccc;
   }
+  form select {
+      padding: 12px 20px;
+      width: 100%;
+      border: 1px solid #ccc;
+  }
   .submit-btn {
       width: 100%;
       border: none;
@@ -42,24 +47,27 @@
   }
  </style>
  <body>
-  <form id='form'> 
-    <div class="input-group">
-      <label for='name'>Name</label>
-      <input name='name' id='name' placeholder="Enter name" />
-    </div>
-    <div class="input-group">
-      <label for='type'>Type</label>
-      <select id="type">
-        <option disabled selected value="">Select type</option>
-      </select>
-      <!-- <input name='type' id='type' placeholder="Select type" /> -->
-    </div>
-    <div class="input-group">
-      <label for='file'>Select file</label>
-      <input id='file' type="file">
-    </div>
-    <input type="submit" value="Upload"/>
-  </form>
+  <div class="container">
+    <form id='form'> 
+      <div class="input-group">
+        <label for='name'>Name</label>
+        <input name='name' id='name' placeholder="Enter name" />
+      </div>
+      <div class="input-group">
+        <label for='type'>Type</label>
+        <select id="type">
+          <option disabled selected value="">Select type</option>
+        </select>
+        <!-- <input name='type' id='type' placeholder="Select type" /> -->
+      </div>
+      <div class="input-group">
+        <label for='file'>Select file</label>
+        <input id='file' type="file">
+      </div>
+      <input class="submit-btn" type="submit" value="Upload"/>
+    </form>
+  </div>
+  
   <script>
     const form = document.getElementById("form");
    
