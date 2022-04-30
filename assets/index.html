@@ -1,0 +1,102 @@
+<!--  SINGLE FILE -->
+<style>
+  body {
+    background-color: rgb(6, 26, 27);
+  }
+  * {
+      box-sizing: border-box;
+  }
+  .container {
+      max-width: 500px;
+      margin: 60px auto;
+  }
+  .container h1 {
+      text-align: center;
+      color: white;
+  }
+  form {
+      background-color: white;
+      padding: 30px;
+  }
+  form .input-group {
+      margin-bottom: 15px;
+  }
+  form label {
+      display: block;
+      margin-bottom: 10px;
+  }
+  form input {
+      padding: 12px 20px;
+      width: 100%;
+      border: 1px solid #ccc;
+  }
+  .submit-btn {
+      width: 100%;
+      border: none;
+      background: rgb(37, 83, 3);
+      font-size: 18px;
+      color: white;
+      border-radius: 3px;
+      padding: 20px;
+      text-align: center;
+  }
+ </style>
+ <body>
+  <form id='form'> 
+    <div class="input-group">
+      <label for='name'>Name</label>
+      <input name='name' id='name' placeholder="Enter name" />
+    </div>
+    <div class="input-group">
+      <label for='type'>Type</label>
+      <select id="type">
+        <option disabled selected value="">Select type</option>
+      </select>
+      <!-- <input name='type' id='type' placeholder="Select type" /> -->
+    </div>
+    <div class="input-group">
+      <label for='file'>Select file</label>
+      <input id='file' type="file">
+    </div>
+    <input type="submit" value="Upload"/>
+  </form>
+  <script>
+    const form = document.getElementById("form");
+   
+    fetch("type.json")
+    .then((res) => {
+      data = res.json()
+      .then(options=> {
+        const type = document.getElementById("type");
+        for (i in options) {
+          let option = document.createElement("option");
+          option.text = options[i];
+          option.value = i;
+          type.appendChild(option);
+        }
+      })
+      
+    })
+    .catch((err) => ("Error occured", err))
+
+    form.addEventListener("submit", submitForm);
+
+    function submitForm(e) {
+      e.preventDefault();
+      const name = document.getElementById("name");
+      const type = document.getElementById("type");
+      const file = document.getElementById("file");
+      const formData = new FormData();
+      formData.append("name", name.value);
+      formData.append("type", type.value);
+      formData.append("file", file.files[0])
+
+      fetch("/file", {
+        method: 'POST',
+        body: formData,
+      })
+      .then((res) => console.log(res))
+      .catch((err) => ("Error occured", err));
+    }
+  </script>
+ </body>
